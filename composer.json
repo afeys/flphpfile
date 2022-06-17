@@ -1,0 +1,33 @@
+{
+    "name": "afeys/flphpfile",
+    "description": "Helper clas to make handling ascii files in PHP a lot easier and more efficient",
+    "keywords": [
+        "file", "util", "helper", "manipulation", "chainable"
+    ],
+    "homepage": "https://github.com/afeys/flphpfile",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andy Feys",
+            "email": "gitprojects@feys.be",
+            "homepage": "http://www.feys.be"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "support": {
+        "issues": "https://github.com/afeys/flphpfile/issues",
+        "source": "https://github.com/afeys/flphpfile/"
+    },
+    "autoload": {
+        "psr-4": { "flphpfile\\": "src/" },
+        "files": ["src/init.php"]
+    },
+    "autoload-dev": {
+        "classmap": [ "tests" ]
+    }
+}

@@ -59,7 +59,8 @@ class FileHelper {
     }
 
     public function save() {
-        
+        file_put_contents($this->filename, implode("\n", $this->filedata));
+        return $this;
     }
 
     public function findFirstLineNumberContaining($searchstring) {

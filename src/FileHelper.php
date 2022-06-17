@@ -3,6 +3,7 @@
 namespace FL;
 
 class FileHelper {
+
     /**
      * Helper function to the constructor.
      * This allows chaining multiple commands in one line:
@@ -13,7 +14,8 @@ class FileHelper {
      */
     private $filename;
     private $filepointer;
-    
+    private $filedata = array();
+
     public static function getInstance($filename = "") {
         $class = __CLASS__;
         return new $class($filename);
@@ -28,35 +30,65 @@ class FileHelper {
      */
     function __construct($filename = "") {
         $this->filename = $filename;
-        
+        $this->open();
     }
-    
-    function open($mode = "a+" ) {
-        $this->filepointer = fopen($this->filename);
+
+    public function open($mode = "a+") {
+        $this->filepointer = fopen($this->filename, $mode);
         if ($this->filepointer == false) {
-            throw new Exception("FLPHPFile: could not open file '" . $this->filename . "'.");
+            throw new \Exception("FLPHPFile: could not open file '" . $this->filename . "'.");
         }
+        $this->filedata = file($this->filename);
         return $this;
     }
-    
-    function getFilePointer() {
+
+    public function getFilePointer() {
         return $this->filepointer;
     }
-    
-    function close() {
+
+    public function getFileData() {
+        return $this->filedata;
+    }
+
+    public function close() {
         $returnvalue = fclose($this->filepointer);
         if ($returnvalue == false) {
-            throw new Exception("FLPHPFile: could not close file '" . $this->filename . "'.");
+            throw new \Exception("FLPHPFile: could not close file '" . $this->filename . "'.");
         }
         return $this;
     }
- 
-    function save() {
+
+    public function save() {
         
     }
-    
-    function insertLinesAt($linenr, $linedata) {
+
+    public function findFirstLineNumberContaining($searchstring) {
+        foreach ($this->filedata as $index => $string) {
+            if (strpos($string, $searchstring) !== FALSE)
+                return $index;
+        }
+        return false;
+    }
+
+    public function removeEverythingBetweenLines($startline, $endline) {
+        $removelines = array();
+        for ($i = $startline; $i <= $endline; $i++) {
+            $removelines[$i] = "";
+        }
+        $this->filedata = \array_diff_key($this->filedata, $removelines);
+        return $this;
+    }
+
+    public function insertAfterLineNumber($linenr, $linedata) {
+        if ($linenr < count($this->filedata)) {
+            $linenr += 1;
+        }
+        array_splice($this->filedata, $linenr, 0, $linedata);
+        return $this;
+    }
+
+    public function insertLinesAt($linenr, $linedata) {
         
     }
-    
+
 }

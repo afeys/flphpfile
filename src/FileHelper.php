@@ -92,4 +92,63 @@ class FileHelper {
         
     }
 
+    public function convertSize($size, $converto = File::ASFARASPOSSIBLE, $includeunit = true) {
+        // this converts bytes to a nicer displayable unit.
+        $returnvalue = "0";
+        $_kb = 1024;
+        $_mb = $_kb * 1024;
+        $_gb = $_mb * 1024;
+        $_tb = $_gb * 1024;
+        $freespace = "0";
+        $freespaceunit = "KB";
+        if (is_numeric($size)) {
+            if ($converto == File::ASFARASPOSSIBLE)
+                $freespacebytes = $size;
+            if ($size >= $_tb) {
+                $freespace = round($size / $_tb, 2);
+                $freespaceunit = "TB";
+            } else {
+                if ($size >= $_gb) {
+                    $freespace = round($size / $_gb, 2);
+                    $freespaceunit = "GB";
+                } else {
+                    if ($size >= $_mb) {
+                        $freespace = round($size / $_mb, 2);
+                        $freespaceunit = "MB";
+                    } else {
+                        if ($size >= $_kb) {
+                            $freespace = round($size / $_kb, 2);
+                            $freespaceunit = "KB";
+                        }
+                    }
+                }
+            }
+        } else {
+            $divider = 1;
+            if ($converto == File::TOTERABYTES) {
+                $divider = $_tb;
+                $freespaceunit = "TB";
+            }
+            if ($converto == File::TOGIGABYTES) {
+                $divider = $_gb;
+                $freespaceunit = "GB";
+            }
+            if ($converto == File::TOMEGABYTES) {
+                $divider = $_mb;
+                $freespaceunit = "MB";
+            }
+            if ($converto == File::TOKILOBYTES) {
+                $divider = $_kb;
+                $freespaceunit = "KB";
+            }
+            $freespace = round($size / $divider, 2);
+        }
+        if ($includeunit == true) {
+            $returnvalue = $freespace . $freespaceunit;
+        } else {
+            $returnvalue = $freespace;
+        }
+        return $returnvalue;
+    }
+
 }

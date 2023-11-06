@@ -30,7 +30,9 @@ class FileHelper {
      */
     function __construct($filename = "") {
         $this->filename = $filename;
-        $this->open();
+        if ($this->filename !== "") {
+            $this->open();
+        }
     }
 
     public function open($mode = "a+") {

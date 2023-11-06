@@ -12,6 +12,13 @@ class FileHelper {
      * @param string $filename  filename to open
      * @return object the FileHelper instance
      */
+    const ASFARASPOSSIBLE = "AFAP";
+    const TOTERABYTES = "TTB";
+    const TOGIGABYTES = "TGB";
+    const TOMEGABYTES = "TMB";
+    const TOKILOBYTES = "TKB";
+    const TOBYTES = "TB";
+
     private $filename;
     private $filepointer;
     private $filedata = array();
@@ -94,7 +101,7 @@ class FileHelper {
         
     }
 
-    public function convertSize($size, $converto = File::ASFARASPOSSIBLE, $includeunit = true) {
+    public function convertSize($size, $converto = FileHelper::ASFARASPOSSIBLE, $includeunit = true) {
         // this converts bytes to a nicer displayable unit.
         $returnvalue = "0";
         $_kb = 1024;

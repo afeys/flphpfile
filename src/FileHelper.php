@@ -111,7 +111,7 @@ class FileHelper {
         $freespace = "0";
         $freespaceunit = "KB";
         if (is_numeric($size)) {
-            if ($converto == File::ASFARASPOSSIBLE)
+            if ($converto == FileHelper::ASFARASPOSSIBLE)
                 $freespacebytes = $size;
             if ($size >= $_tb) {
                 $freespace = round($size / $_tb, 2);

@@ -72,6 +72,13 @@ class FileHelper {
         return $this;
     }
 
+    public function getRandomFileNameFromFolder($folder = ".") {
+        srand((double) microtime() * 1000000);
+        $availableBkg = scandir($folder);
+        $_idx = rand(0, count($availableBkg));
+        return $folder . "/". $availableBkg[$_idx + 2]; // +2 to avoid .. and . results. same for -3 in line above.
+    }
+
     public function findFirstLineNumberContaining($searchstring) {
         foreach ($this->filedata as $index => $string) {
             if (strpos($string, $searchstring) !== FALSE)

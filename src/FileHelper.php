@@ -73,7 +73,7 @@ class FileHelper {
     }
 
     public function getRandomFileNameFromFolder($folder = ".", $getfullpath = false) {
-        srand((double) microtime() * 1000000);
+        srand(intval((double) microtime() * 1000000));
         $availableBkg = scandir($folder);
         $_idx = rand(0, count($availableBkg) - 3);
         if ($getfullpath == true) {

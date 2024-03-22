@@ -72,11 +72,15 @@ class FileHelper {
         return $this;
     }
 
-    public function getRandomFileNameFromFolder($folder = ".") {
+    public function getRandomFileNameFromFolder($folder = ".", $getfullpath = false) {
         srand((double) microtime() * 1000000);
         $availableBkg = scandir($folder);
         $_idx = rand(0, count($availableBkg));
-        return $folder . "/". $availableBkg[$_idx + 2]; // +2 to avoid .. and . results. same for -3 in line above.
+        if ($getfullpath == true) {
+            return $folder . "/" . $availableBkg[$_idx + 2]; // +2 to avoid .. and . results. same for -3 in line above.
+        } else {
+            return $availableBkg[$_idx + 2]; // +2 to avoid .. and . results. same for -3 in line above.
+        }
     }
 
     public function findFirstLineNumberContaining($searchstring) {
